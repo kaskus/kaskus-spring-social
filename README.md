@@ -1,1 +1,1 @@
-# kaskus-spring-social
+# spring-social-kaskus
