@@ -1,6 +1,7 @@
 package org.springframework.social.kaskus.api.impl;
 
 import org.springframework.social.kaskus.api.Kaskus;
+import org.springframework.social.kaskus.api.ThreadOperations;
 import org.springframework.social.kaskus.api.UserOperations;
 import org.springframework.social.oauth1.AbstractOAuth1ApiBinding;
 import org.springframework.web.client.RestTemplate;
@@ -8,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 public class KaskusTemplate extends AbstractOAuth1ApiBinding implements Kaskus {
 
     private UserOperations userOperations;
+
+    private ThreadOperations threadOperations;
 
     private RestTemplate clientRestTemplate = null;
 
@@ -23,8 +26,13 @@ public class KaskusTemplate extends AbstractOAuth1ApiBinding implements Kaskus {
         return userOperations;
     }
 
+    public ThreadOperations threadOperations() {
+        return threadOperations;
+    }
+
     private void initSubApis() {
         this.userOperations = new UserTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp(), apiBaseUrl);
+        this.threadOperations = new ThreadTemplate(getRestTemplate(), isAuthorized(), isAuthorizedForApp(), apiBaseUrl);
     }
 
     private boolean isAuthorizedForApp() {
