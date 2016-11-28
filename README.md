@@ -1,4 +1,5 @@
 ============================= Spring Social Twitter ===========================
+
 To check out the project and build from source, do the following:
 
  git clone git://github.com/SpringSource/spring-social-twitter.git
