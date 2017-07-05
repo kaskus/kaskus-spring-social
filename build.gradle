@@ -16,16 +16,16 @@ configure(allprojects) {
 
     group = 'org.springframework.social'
 
-    sourceCompatibility=1.5
-    targetCompatibility=1.5
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
 
     ext {
         springSocialVersion = '1.1.4.RELEASE'
         jacksonVersion = '2.3.0'
-        junitVersion = '4.11'
+        junitVersion = '4.12'
         mockitoVersion = '1.9.5'
-        servletApiVersion = '3.0.1'
-        springVersion = '4.0.2.RELEASE'
+        servletApiVersion = '3.1.0'
+        springVersion = '4.3.9.RELEASE'
     }
 
     [compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:none']
@@ -106,21 +106,21 @@ project('spring-social-kaskus') {
     }
 }
 
-//configure(rootProject) {
-//    description = 'Spring Social Kaskus'
-//
+configure(rootProject) {
+    description = 'Spring Social Kaskus'
+
 //    apply plugin: 'docbook-reference'
-//
+
 //    reference {
 //        sourceDir = file('src/reference/docbook')
 //    }
-//
-//    // don't publish the default jar for the root project
+
+    // don't publish the default jar for the root project
 //    configurations.archives.artifacts.clear()
-//
-//    dependencies { // for integration tests
-//    }
-//
+
+    dependencies { // for integration tests
+    }
+
 //    task api(type: Javadoc) {
 //        group = 'Documentation'
 //        description = 'Generates aggregated Javadoc API documentation.'
@@ -141,7 +141,7 @@ project('spring-social-kaskus') {
 //        })
 //        maxMemory = '1024m'
 //    }
-//
+
 //    task docsZip(type: Zip) {
 //        group = 'Distribution'
 //        classifier = 'docs'
@@ -160,7 +160,7 @@ project('spring-social-kaskus') {
 //            into 'reference'
 //        }
 //    }
-//
+
 //    task schemaZip(type: Zip) {
 //        group = 'Distribution'
 //        classifier = 'schema'
@@ -187,7 +187,7 @@ project('spring-social-kaskus') {
 //            }
 //        }
 //    }
-//
+
 //    task distZip(type: Zip, dependsOn: [docsZip, schemaZip]) {
 //        group = 'Distribution'
 //        classifier = 'dist'
@@ -224,19 +224,19 @@ project('spring-social-kaskus') {
 //            }
 //        }
 //    }
-//
+
 //    artifacts {
 //        archives docsZip
 ////        archives schemaZip
 //        archives distZip
 //    }
-//
-//    task wrapper(type: Wrapper) {
-//        description = 'Generates gradlew[.bat] scripts'
-//        gradleVersion = '1.10'
-//    }
-//
-//}
+
+    task wrapper(type: Wrapper) {
+        description = 'Generates gradlew[.bat] scripts'
+        gradleVersion = '2.14'
+    }
+
+}
 //
 //task updateRootDocs << {
 //    copy {
