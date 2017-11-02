@@ -28,4 +28,9 @@ public class UserTemplate extends AbstractKaskusOperations implements UserOperat
         requireUserAuthorization();
         return restTemplate.getForObject(buildUri("/user?output=json"), KaskusProfile.class);
     }
+
+    public KaskusProfile getUserProfile(String userid) {
+        requireUserAuthorization();
+        return restTemplate.getForObject(buildUri("/user/" + userid + "?output=json"), KaskusProfile.class);
+    }
 }

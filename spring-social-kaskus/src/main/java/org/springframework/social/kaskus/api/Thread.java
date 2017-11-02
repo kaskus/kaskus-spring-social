@@ -1,75 +1,76 @@
 package org.springframework.social.kaskus.api;
 
-public class Thread extends KaskusObject {
+import java.io.Serializable;
+import java.util.List;
+import java.util.Optional;
 
-    private String threadId;
+public class Thread extends KaskusObject implements Serializable {
+
+    private static final long serialVersionUID = -7741694608579815368L;
+
+    private long forum_id;
     private String title;
-    private String forumName;
-    private long forumId;
-    private String username;
-    private long threadType;
-    private long hotThreadStartTimestamp;
-    private long hotThreadStartDate;
-    private long hotThreadEndDate;
-    private int hotThreadFlag;
-    private int voteNum;
-    private int voteTotal;
-    private double rating;
-    private String image;
+    private String thread_id;
+    private Optional<List<String>> meta_images = Optional.empty();
+    private Optional<Resources> resources = Optional.empty();
+    private Optional<Long> item_price = Optional.empty();
+    private Optional<Long> discounted_price = Optional.empty();
 
-    public String getThreadId() {
-        return threadId;
+    public Thread() {}
+
+    public long getForum_id() {
+        return forum_id;
+    }
+
+    public void setForum_id(long forumId) {
+        this.forum_id = forumId;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getForumName() {
-        return forumName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public long getForumId() {
-        return forumId;
+    public String getThread_id() {
+        return thread_id;
     }
 
-    public String getUsername() {
-        return username;
+    public void setThread_id(String threadId) {
+        this.thread_id = threadId;
     }
 
-    public long getThreadType() {
-        return threadType;
+    public Optional<List<String>> getMeta_images() {
+        return meta_images;
     }
 
-    public long getHotThreadStartTimestamp() {
-        return hotThreadStartTimestamp;
+    public void setMeta_images(Optional<List<String>> metaImages) {
+        this.meta_images = metaImages;
     }
 
-    public long getHotThreadStartDate() {
-        return hotThreadStartDate;
+    public Optional<Resources> getResources() {
+        return resources;
     }
 
-    public long getHotThreadEndDate() {
-        return hotThreadEndDate;
+    public void setResources(Optional<Resources> resources) {
+        this.resources = resources;
     }
 
-    public int getHotThreadFlag() {
-        return hotThreadFlag;
+    public Optional<Long> getItem_price() {
+        return item_price;
     }
 
-    public int getVoteNum() {
-        return voteNum;
+    public void setItem_price(Optional<Long> itemPrice) {
+        this.item_price = itemPrice;
     }
 
-    public int getVoteTotal() {
-        return voteTotal;
+    public Optional<Long> getDiscounted_price() {
+        return discounted_price;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public String getImage() {
-        return image;
+    public void setDiscounted_price(Optional<Long> discountedPrice) {
+        this.discounted_price = discountedPrice;
     }
 }

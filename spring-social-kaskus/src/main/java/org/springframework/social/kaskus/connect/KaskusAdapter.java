@@ -10,6 +10,7 @@ import org.springframework.social.kaskus.api.KaskusProfile;
 
 public class KaskusAdapter implements ApiAdapter<Kaskus> {
 
+    @Override
     public boolean test(Kaskus kaskus) {
         try {
             kaskus.userOperations().getUserProfile();
@@ -19,6 +20,7 @@ public class KaskusAdapter implements ApiAdapter<Kaskus> {
         }
     }
 
+    @Override
     public void setConnectionValues(Kaskus kaskus, ConnectionValues values) {
         KaskusProfile kaskusProfile = kaskus.userOperations().getUserProfile();
         values.setProviderUserId(Long.toString(kaskusProfile.getUserid()));
@@ -26,6 +28,7 @@ public class KaskusAdapter implements ApiAdapter<Kaskus> {
         values.setImageUrl(kaskusProfile.getProfilepicture());
     }
 
+    @Override
     public UserProfile fetchUserProfile(Kaskus kaskus) {
         KaskusProfile kaskusProfile = kaskus.userOperations().getUserProfile();
         return new UserProfileBuilder()
@@ -40,6 +43,7 @@ public class KaskusAdapter implements ApiAdapter<Kaskus> {
         return kaskusProfile;
     }
 
+    @Override
     public void updateStatus(Kaskus api, String message) {
     }
 }

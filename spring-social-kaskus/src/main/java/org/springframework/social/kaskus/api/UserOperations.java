@@ -7,4 +7,6 @@ public interface UserOperations {
     String getUsername();
 
     KaskusProfile getUserProfile();
+
+    KaskusProfile getUserProfile(String userid);
 }

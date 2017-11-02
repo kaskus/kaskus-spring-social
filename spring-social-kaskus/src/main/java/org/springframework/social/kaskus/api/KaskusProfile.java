@@ -165,7 +165,7 @@ public class KaskusProfile extends KaskusObject implements Serializable {
         return reputation_title;
     }
 
-    public boolean isIs_donatur() {
+    public boolean getIs_donatur() {
         return is_donatur;
     }
 
