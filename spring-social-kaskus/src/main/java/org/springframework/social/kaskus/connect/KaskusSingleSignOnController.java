@@ -79,16 +79,16 @@ public class KaskusSingleSignOnController implements InitializingBean {
             handleLogout(request);
         }
 
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ExceptionHandler({KaskusSingleSingOnException.class, Exception.class})
-    public ResponseEntity<?> handleException(Exception e) {
+    public ResponseEntity<String> handleException(Exception e) {
         logger.error(e.getMessage());
         if (e instanceof KaskusSingleSingOnException)
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override

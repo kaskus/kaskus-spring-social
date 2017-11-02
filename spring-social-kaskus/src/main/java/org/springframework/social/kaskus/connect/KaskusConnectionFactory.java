@@ -42,7 +42,9 @@ public class KaskusConnectionFactory extends OAuth1ConnectionFactory<Kaskus> {
     private final RestTemplate restTemplate;
 
     public KaskusConnectionFactory(String consumerKey, String consumerSecret, String apiBaseUrl, RestTemplate restTemplate) {
-        super("kaskus", new KaskusServiceProvider(consumerKey, consumerSecret, apiBaseUrl), new KaskusAdapter());
+        super("kaskus",
+            new KaskusServiceProvider(consumerKey, consumerSecret, apiBaseUrl),
+            new KaskusAdapter());
         this.consumerKey = consumerKey;
         this.consumerSecret = consumerSecret;
         this.apiBaseUrl = apiBaseUrl;
