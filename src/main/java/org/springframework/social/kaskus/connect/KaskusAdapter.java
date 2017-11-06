@@ -39,8 +39,7 @@ public class KaskusAdapter implements ApiAdapter<Kaskus> {
     }
 
     public KaskusProfile fetchKaskusUserProfile(Kaskus kaskus) {
-        KaskusProfile kaskusProfile = kaskus.userOperations().getUserProfile();
-        return kaskusProfile;
+        return kaskus.userOperations().getUserProfile();
     }
 
     @Override

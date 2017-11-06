@@ -8,7 +8,7 @@ public class KaskusObject {
     private Map<String, Object> extraData;
 
     public KaskusObject() {
-        this.extraData = new HashMap<String, Object>();
+        this.extraData = new HashMap<>();
     }
 
     public Map<String, Object> getExtraData() {

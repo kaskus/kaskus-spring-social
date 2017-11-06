@@ -1,38 +1,20 @@
-buildscript {
-    repositories {
-        maven { url 'http://repo.spring.io/plugins-release' }
-    }
-    dependencies {
-        classpath 'org.springframework.build.gradle:docbook-reference-plugin:0.2.8'
-        classpath 'me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1'
-        classpath('org.asciidoctor:asciidoctor-gradle-plugin:0.7.0')
-        classpath('org.asciidoctor:asciidoctor-java-integration:0.1.4.preview.1')
-        classpath('io.spring.gradle:spring-io-plugin:0.0.6.RELEASE')
-    }
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'org.springframework.social'
+description = 'Spring Social Kaskus'
+
+compileJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+}
+compileTestJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
 }
 
-// Set up different subproject lists for individual configuration
-ext.javaProjects = subprojects.findAll { project -> project.name != 'docs' && project.name != 'manual' }
-ext.coreModuleProjects = javaProjects
-
-configure(allprojects) {
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
-    apply plugin: 'javadocHotfix'
-
-    group = 'org.springframework.social'
-
-    compileJava {
-        sourceCompatibility=1.8
-        targetCompatibility=1.8
-    }
-    compileTestJava {
-        sourceCompatibility=1.8
-        targetCompatibility=1.8
-    }
-
-    [compileJava, compileTestJava]*.options*.compilerArgs = [
+[compileJava, compileTestJava]*.options*.compilerArgs = [
         "-Xlint:serial",
         "-Xlint:varargs",
         "-Xlint:cast",
@@ -51,66 +33,46 @@ configure(allprojects) {
         "-Xlint:rawtypes",
         "-Xlint:deprecation",
         "-Xlint:unchecked"
-    ]
+]
 
-    sourceSets.test.resources.srcDirs = [
+sourceSets.test.resources.srcDirs = [
         "src/test/resources",
         "src/test/java"
-    ]
+]
 
-    test.systemProperty("java.awt.headless", "true")
+test.systemProperty("java.awt.headless", "true")
 
-    repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
-        maven { url "http://repo.spring.io/libs-milestone" }
-        mavenLocal()
-    }
-
-    dependencies {
-        testCompile ("org.hamcrest:hamcrest-library:$hamcrestVersion")
-        testCompile ("junit:junit:$junitVersion")
-        testCompile ("org.mockito:mockito-core:$mockitoVersion")
-        testCompile ("org.springframework:spring-test:$springVersion")
-    }
-
-    ext.javadocLinks = [
-        "http://docs.oracle.com/javase/7/docs/api/",
-        "http://docs.oracle.com/javaee/7/api/",
-        "http://docs.spring.io/spring/docs/${springVersion}/javadoc-api/",
-        "http://docs.jboss.org/jbossas/javadoc/4.0.5/connector/"
-    ] as String[]
-
-    // servlet-api (2.5) and tomcat-servlet-api (3.0) classpath entries should not be
-    // exported to dependent projects in Eclipse to avoid false compilation errors due
-    // to changing APIs across these versions
-    eclipse.classpath.file.whenMerged { classpath ->
-        classpath.entries.findAll { entry -> entry.path.contains('servlet-api') }*.exported = false
-    }
+repositories {
+    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven { url "http://repo.spring.io/libs-milestone" }
+    mavenLocal()
 }
 
-project('spring-social-kaskus') {
-    description = 'Kaskus API'
-    dependencies {
-       compile ("org.springframework.social:spring-social-core:$springSocialVersion")
-       compile ("org.springframework.social:spring-social-config:$springSocialVersion")
-       compile ("org.springframework.social:spring-social-security:$springSocialVersion")
-       compile ("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
-       compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-       compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
-       compile ("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
-       compile ("javax.servlet:javax.servlet-api:$servletApiVersion")
-        compile("org.slf4j:slf4j-api:$slf4jVersion")
-        compile("commons-codec:commons-codec:$commonsCodecsVersion")
-       testCompile ("org.springframework:spring-test:$springVersion")
-    }
+dependencies {
+    compile ("org.springframework.social:spring-social-core:$springSocialVersion")
+    compile ("org.springframework.social:spring-social-config:$springSocialVersion")
+    compile ("org.springframework.social:spring-social-security:$springSocialVersion")
+    compile ("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    compile ("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
+    compile ("javax.servlet:javax.servlet-api:$servletApiVersion")
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    compile("commons-codec:commons-codec:$commonsCodecsVersion")
+
+    testCompile ("org.hamcrest:hamcrest-library:$hamcrestVersion")
+    testCompile ("junit:junit:$junitVersion")
+    testCompile ("org.mockito:mockito-core:$mockitoVersion")
+    testCompile ("org.springframework:spring-test:$springVersion")
 }
 
-configure(rootProject) {
-    description = 'Spring Social Kaskus'
-
-    task wrapper(type: Wrapper) {
-        gradleVersion = '4.3'
-    }
-
+// servlet-api (2.5) and tomcat-servlet-api (3.0) classpath entries should not be
+// exported to dependent projects in Eclipse to avoid false compilation errors due
+// to changing APIs across these versions
+eclipse.classpath.file.whenMerged { classpath ->
+    classpath.entries.findAll { entry -> entry.path.contains('servlet-api') }*.exported = false
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.3'
+}

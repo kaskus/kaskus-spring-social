@@ -43,7 +43,7 @@ public class AbstractKaskusOperations {
     }
 
     protected URI buildUri(String path, String parameterName, String parameterValue) {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.set(parameterName, parameterValue);
         return buildUri(path, parameters);
     }
@@ -60,5 +60,5 @@ public class AbstractKaskusOperations {
         this.API_URL_BASE = apiUrlBase;
     }
 
-    private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<String, String>();
+    private static final LinkedMultiValueMap<String, String> EMPTY_PARAMETERS = new LinkedMultiValueMap<>();
 }
