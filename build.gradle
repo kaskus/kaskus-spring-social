@@ -1,0 +1,78 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'org.springframework.social'
+description = 'Spring Social Kaskus'
+
+compileJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+}
+compileTestJava {
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+}
+
+[compileJava, compileTestJava]*.options*.compilerArgs = [
+        "-Xlint:serial",
+        "-Xlint:varargs",
+        "-Xlint:cast",
+        "-Xlint:classfile",
+        "-Xlint:dep-ann",
+        "-Xlint:divzero",
+        "-Xlint:empty",
+        "-Xlint:finally",
+        "-Xlint:overrides",
+        "-Xlint:path",
+        "-Xlint:processing",
+        "-Xlint:static",
+        "-Xlint:try",
+        "-Xlint:-options",     // intentionally disabled
+        "-Xlint:-fallthrough", // intentionally disabled
+        "-Xlint:rawtypes",
+        "-Xlint:deprecation",
+        "-Xlint:unchecked"
+]
+
+sourceSets.test.resources.srcDirs = [
+        "src/test/resources",
+        "src/test/java"
+]
+
+test.systemProperty("java.awt.headless", "true")
+
+repositories {
+    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven { url "http://repo.spring.io/libs-milestone" }
+    mavenLocal()
+}
+
+dependencies {
+    compile ("org.springframework.social:spring-social-core:$springSocialVersion")
+    compile ("org.springframework.social:spring-social-config:$springSocialVersion")
+    compile ("org.springframework.social:spring-social-security:$springSocialVersion")
+    compile ("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    compile ("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    compile ("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
+    compile ("javax.servlet:javax.servlet-api:$servletApiVersion")
+    compile("org.slf4j:slf4j-api:$slf4jVersion")
+    compile("commons-codec:commons-codec:$commonsCodecsVersion")
+
+    testCompile ("org.hamcrest:hamcrest-library:$hamcrestVersion")
+    testCompile ("junit:junit:$junitVersion")
+    testCompile ("org.mockito:mockito-core:$mockitoVersion")
+    testCompile ("org.springframework:spring-test:$springVersion")
+}
+
+// servlet-api (2.5) and tomcat-servlet-api (3.0) classpath entries should not be
+// exported to dependent projects in Eclipse to avoid false compilation errors due
+// to changing APIs across these versions
+eclipse.classpath.file.whenMerged { classpath ->
+    classpath.entries.findAll { entry -> entry.path.contains('servlet-api') }*.exported = false
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.3'
+}
