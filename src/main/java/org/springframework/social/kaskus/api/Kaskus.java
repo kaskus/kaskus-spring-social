@@ -9,4 +9,7 @@ public interface Kaskus extends ApiBinding{
     ThreadOperations threadOperations();
 
     SearchOperations searchOperations();
+
+    AuthOperations authOperations();
+
 }
